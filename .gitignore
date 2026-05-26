@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Config lokal
+config.py
+.env
+.env.*
+!.env.example
+
+# Output runtime
+logs/
+test_results/
+test_metadata.json
+*.log
+*.jtl
+
+# Apache JMeter kalau tidak sengaja diextract di dalam repo
+apache-jmeter-*/
+
+# Backup lokal
+jmeter-api-backup/
+*-backup/
+*_backup/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Other
+availability_test_24h.sh
