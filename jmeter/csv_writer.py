@@ -16,10 +16,10 @@ from jmeter.qlearning_history import load_qlearning_history, find_qlearning_deci
 SUMMARY_FIELDNAMES = [
     "test_id", "status", "target_url", "num_threads", "ramp_time",
     "duration_seconds", "http_path", "timestamp_seconds",
-    "timeline_response_time_ms", "timeline_throughput_rps",
+    "timeline_response_time_ms", "timeline_request_throughput_rps",
     "total_requests", "success_requests", "error_requests",
-    "error_rate_pct", "success_rate_pct", "throughput_avg_rps",
-    "bandwidth_received_kbps", "bandwidth_sent_kbps",
+    "error_rate_pct", "success_rate_pct", "request_throughput_avg_rps",
+    "data_throughput_received_KBps", "data_throughput_sent_KBps",
     "response_time_avg_ms", "response_time_min_ms", "response_time_max_ms",
     "response_time_median_ms", "response_time_90th_ms", "response_time_95th_ms",
     "start_time", "end_time",
@@ -39,7 +39,8 @@ REQUEST_FIELDNAMES = [
 # Kolom yang nilainya float dan perlu diformat koma-desimal untuk Excel Indonesia
 FLOAT_FIELDS = {
     "timeline_response_time_ms", "error_rate_pct", "success_rate_pct",
-    "throughput_avg_rps", "bandwidth_received_kbps", "bandwidth_sent_kbps",
+    "request_throughput_avg_rps",
+    "data_throughput_received_KBps", "data_throughput_sent_KBps",
     "response_time_avg_ms", "response_time_min_ms", "response_time_max_ms",
     "response_time_median_ms", "response_time_90th_ms", "response_time_95th_ms",
 }
@@ -71,9 +72,9 @@ def build_tidy_csv_rows(test_id, test):
         "error_requests":           results.get('error_requests'),
         "error_rate_pct":           results.get('error_rate'),
         "success_rate_pct":         success_rate,
-        "throughput_avg_rps":       results.get('throughput'),
-        "bandwidth_received_kbps":  results.get('bandwidth_received'),
-        "bandwidth_sent_kbps":      results.get('bandwidth_sent'),
+        "request_throughput_avg_rps":      results.get('throughput'),
+        "data_throughput_received_KBps":   results.get('bandwidth_received'),
+        "data_throughput_sent_KBps":       results.get('bandwidth_sent'),
         "response_time_avg_ms":     results.get('response_time_avg'),
         "response_time_min_ms":     results.get('response_time_min'),
         "response_time_max_ms":     results.get('response_time_max'),
@@ -90,12 +91,12 @@ def build_tidy_csv_rows(test_id, test):
             {**common,
              "timestamp_seconds":         p.get("timestamp"),
              "timeline_response_time_ms": p.get("response_time"),
-             "timeline_throughput_rps":   p.get("throughput")}
+             "timeline_request_throughput_rps":   p.get("throughput")}
             for p in timeline
         ]
 
     return [{**common, "timestamp_seconds": None,
-             "timeline_response_time_ms": None, "timeline_throughput_rps": None}]
+             "timeline_response_time_ms": None, "timeline_request_throughput_rps": None}]
 
 
 def generate_tidy_csv_text(test_id, test):
